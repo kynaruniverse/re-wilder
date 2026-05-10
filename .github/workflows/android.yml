@@ -22,23 +22,17 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Fix gradle-wrapper.jar if missing or corrupt
+      - name: Fix gradle-wrapper.jar
         run: |
-          EXPECTED_SIZE=59815
-          ACTUAL_SIZE=$(stat -c%s gradle/wrapper/gradle-wrapper.jar 2>/dev/null || echo 0)
-          if [ "$ACTUAL_SIZE" -lt "$EXPECTED_SIZE" ]; then
-            echo "gradle-wrapper.jar missing or corrupt. Downloading..."
-            mkdir -p gradle/wrapper
-            curl -L -o gradle/wrapper/gradle-wrapper.jar \
-              "https://github.com/gradle/gradle/raw/v8.7.0/gradle/wrapper/gradle-wrapper.jar"
-            git config user.name "github-actions"
-            git config user.email "github-actions@github.com"
-            git add gradle/wrapper/gradle-wrapper.jar
-            git diff --staged --quiet || git commit -m "ci: add valid gradle-wrapper.jar"
-            git push
-          else
-            echo "gradle-wrapper.jar looks valid. Skipping download."
-          fi
+          mkdir -p gradle/wrapper
+          curl -L -o gradle/wrapper/gradle-wrapper.jar \
+            "https://repo.maven.apache.org/maven2/org/gradle/gradle-wrapper/8.7/gradle-wrapper-8.7.jar"
+          echo "Downloaded jar size: $(stat -c%s gradle/wrapper/gradle-wrapper.jar) bytes"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add gradle/wrapper/gradle-wrapper.jar
+          git diff --staged --quiet || git commit -m "ci: add valid gradle-wrapper.jar"
+          git push
 
       - name: Make gradlew executable
         run: chmod +x gradlew
