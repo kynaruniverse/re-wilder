@@ -1,0 +1,130 @@
+{
+  "creatures": [
+    {
+      "id": "creature_rootling",
+      "displayName": "Rootling",
+      "role": "restoration",
+      "bondLevel": 0,
+      "abilities": [
+        "root_read",
+        "soil_mend",
+        "deep_pulse",
+        "verdant_trace",
+        "living_memory"
+      ],
+      "biomeAffinity": ["forest_01"],
+      "traversalType": "none",
+      "unlocked": false,
+      "bonded": false,
+      "assignedBiome": null,
+      "interactionType": "timing_input",
+      "scale": "small",
+      "spawnBiome": "forest_01"
+    },
+    {
+      "id": "creature_crane",
+      "displayName": "Ash Crane",
+      "role": "traversal",
+      "bondLevel": 0,
+      "abilities": [
+        "still_water",
+        "wading_path",
+        "deep_crossing",
+        "wetland_voice",
+        "migration_memory"
+      ],
+      "biomeAffinity": ["wetlands_03"],
+      "traversalType": "water",
+      "unlocked": false,
+      "bonded": false,
+      "assignedBiome": null,
+      "interactionType": "movement_sync",
+      "scale": "large",
+      "spawnBiome": "ruins_02"
+    },
+    {
+      "id": "creature_tunnelmole",
+      "displayName": "Tunnelmole",
+      "role": "traversal",
+      "bondLevel": 0,
+      "abilities": [
+        "vibration_read",
+        "soft_passage",
+        "deep_dig",
+        "foundation_memory",
+        "lace_conduit"
+      ],
+      "biomeAffinity": ["ruins_02"],
+      "traversalType": "dig",
+      "unlocked": false,
+      "bonded": false,
+      "assignedBiome": null,
+      "interactionType": "environmental_stabilisation",
+      "scale": "medium_large",
+      "spawnBiome": "ruins_02"
+    },
+    {
+      "id": "creature_mossback",
+      "displayName": "Mossback",
+      "role": "restoration",
+      "bondLevel": 0,
+      "abilities": [
+        "spore_drift",
+        "moss_spread",
+        "flora_surge",
+        "archive_growth",
+        "living_record"
+      ],
+      "biomeAffinity": ["ruins_02"],
+      "traversalType": "none",
+      "unlocked": false,
+      "bonded": false,
+      "assignedBiome": null,
+      "interactionType": "rhythm_alignment",
+      "scale": "large",
+      "spawnBiome": "ruins_02"
+    },
+    {
+      "id": "creature_driftfin",
+      "displayName": "Driftfin",
+      "role": "traversal",
+      "bondLevel": 0,
+      "abilities": [
+        "current_trace",
+        "shallow_passage",
+        "open_water",
+        "bioelectric_bloom",
+        "convergence"
+      ],
+      "biomeAffinity": ["wetlands_03"],
+      "traversalType": "water",
+      "unlocked": false,
+      "bonded": false,
+      "assignedBiome": null,
+      "interactionType": "movement_sync",
+      "scale": "medium",
+      "spawnBiome": "wetlands_03"
+    },
+    {
+      "id": "creature_heronkeeper",
+      "displayName": "Heronkeeper",
+      "role": "support",
+      "bondLevel": 0,
+      "abilities": [
+        "roost_sense",
+        "keepers_watch",
+        "expanded_roost",
+        "settlement_call",
+        "verdanni_welcome"
+      ],
+      "biomeAffinity": ["village"],
+      "traversalType": "none",
+      "unlocked": false,
+      "bonded": false,
+      "assignedBiome": null,
+      "interactionType": "timing_input",
+      "scale": "player_height",
+      "spawnBiome": "village"
+    }
+  ]
+}

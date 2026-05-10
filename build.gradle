@@ -3,23 +3,15 @@ buildscript {
         google()
         mavenCentral()
     }
-
     dependencies {
-        classpath "com.android.tools.build:gradle:${agpVersion}"
+        classpath "com.android.tools.build:gradle:$androidPluginVersion"
     }
 }
 
 allprojects {
-    apply plugin: "eclipse"
-
-    version = "1.0"
-
-    ext {
-        appName = "re-wilder"
-    }
-
     repositories {
         google()
         mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
 }
