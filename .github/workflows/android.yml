@@ -9,9 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: write
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,20 +19,10 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Fix gradle-wrapper.jar
-        run: |
-          mkdir -p gradle/wrapper
-          curl -L -o gradle/wrapper/gradle-wrapper.jar \
-            "https://repo.maven.apache.org/maven2/org/gradle/gradle-wrapper/8.7/gradle-wrapper-8.7.jar"
-          echo "Downloaded jar size: $(stat -c%s gradle/wrapper/gradle-wrapper.jar) bytes"
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add gradle/wrapper/gradle-wrapper.jar
-          git diff --staged --quiet || git commit -m "ci: add valid gradle-wrapper.jar"
-          git push
-
-      - name: Make gradlew executable
-        run: chmod +x gradlew
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.7
 
       - name: Generate placeholder launcher icons
         run: |
@@ -57,7 +44,7 @@ jobs:
             android/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 
       - name: Build APK
-        run: ./gradlew android:assembleDebug
+        run: gradle android:assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
