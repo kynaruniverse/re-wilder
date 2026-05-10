@@ -7,32 +7,43 @@ import com.badlogic.gdx.graphics.GL20;
 /**
  * RE-WILDER — GameMain
  *
- * Phase 1: Application lifecycle and system wiring only.
- * Owns WorldManager and Player. Delegates all logic to them.
+ * RESPONSIBILITY: Application lifecycle and system wiring only.
+ * Owns all top-level system references. Runs the update/render loop.
  *
- * PROHIBITED: Gameplay logic, rendering logic, input reading.
+ * PERMITTED: create(), render(), resize(), dispose() — system wiring only.
+ * PROHIBITED: Gameplay logic, rendering logic, input handling,
+ *             save operations, direct game state changes.
  */
 public class GameMain extends ApplicationAdapter {
 
-    private WorldManager worldManager;
-    private Player player;
+    private InputManager  inputManager;
+    private WorldManager  worldManager;
+    private Player        player;
 
     @Override
     public void create() {
+        inputManager = new InputManager();
         worldManager = new WorldManager();
-        player = new Player(worldManager);
+        player       = new Player(worldManager, inputManager);
+
         Gdx.app.log("RE-WILDER", "Phase 1 — World movement core initialised.");
     }
 
     @Override
     public void render() {
+        // Clear screen
         Gdx.gl.glClearColor(0.10f, 0.10f, 0.10f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         float delta = Gdx.graphics.getDeltaTime();
+
+        // UPDATE ORDER (per TDD §4):
+        // 1. Player resolves movement for this frame
+        // 2. WorldManager positions camera on the resolved player position
+        // 3. WorldManager renders tiles then player sprite
         player.update(delta);
         worldManager.update(delta, player.getX(), player.getY());
-        worldManager.render();
+        worldManager.render(player.getX(), player.getY());
     }
 
     @Override
@@ -43,6 +54,6 @@ public class GameMain extends ApplicationAdapter {
     @Override
     public void dispose() {
         worldManager.dispose();
-        player.dispose();
+        // Player owns no disposable resources in Phase 1
     }
 }
