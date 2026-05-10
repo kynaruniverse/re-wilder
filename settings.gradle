@@ -1,0 +1,3 @@
+rootProject.name = "re-wilder"
+
+include "android", "core"
