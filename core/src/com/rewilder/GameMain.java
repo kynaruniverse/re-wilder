@@ -7,27 +7,42 @@ import com.badlogic.gdx.graphics.GL20;
 /**
  * RE-WILDER — GameMain
  *
- * Phase 0: Engine bootstrap only.
- * Renders a blank screen to confirm the pipeline is working.
+ * Phase 1: Application lifecycle and system wiring only.
+ * Owns WorldManager and Player. Delegates all logic to them.
  *
- * RESPONSIBILITY: Application lifecycle and system wiring only.
- * No gameplay logic lives here.
+ * PROHIBITED: Gameplay logic, rendering logic, input reading.
  */
 public class GameMain extends ApplicationAdapter {
 
+    private WorldManager worldManager;
+    private Player player;
+
     @Override
     public void create() {
-        Gdx.app.log("RE-WILDER", "Phase 0 — Engine bootstrap confirmed.");
+        worldManager = new WorldManager();
+        player = new Player(worldManager);
+        Gdx.app.log("RE-WILDER", "Phase 1 — World movement core initialised.");
     }
 
     @Override
     public void render() {
         Gdx.gl.glClearColor(0.10f, 0.10f, 0.10f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        float delta = Gdx.graphics.getDeltaTime();
+        player.update(delta);
+        worldManager.update(delta, player.getX(), player.getY());
+        worldManager.render();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        worldManager.resize(width, height);
     }
 
     @Override
     public void dispose() {
-        // Nothing to dispose at Phase 0
+        worldManager.dispose();
+        player.dispose();
     }
 }
