@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,8 +22,45 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: Fix gradle-wrapper.jar if missing or corrupt
+        run: |
+          EXPECTED_SIZE=59815
+          ACTUAL_SIZE=$(stat -c%s gradle/wrapper/gradle-wrapper.jar 2>/dev/null || echo 0)
+          if [ "$ACTUAL_SIZE" -lt "$EXPECTED_SIZE" ]; then
+            echo "gradle-wrapper.jar missing or corrupt. Downloading..."
+            mkdir -p gradle/wrapper
+            curl -L -o gradle/wrapper/gradle-wrapper.jar \
+              "https://github.com/gradle/gradle/raw/v8.7.0/gradle/wrapper/gradle-wrapper.jar"
+            git config user.name "github-actions"
+            git config user.email "github-actions@github.com"
+            git add gradle/wrapper/gradle-wrapper.jar
+            git diff --staged --quiet || git commit -m "ci: add valid gradle-wrapper.jar"
+            git push
+          else
+            echo "gradle-wrapper.jar looks valid. Skipping download."
+          fi
+
       - name: Make gradlew executable
         run: chmod +x gradlew
+
+      - name: Generate placeholder launcher icons
+        run: |
+          sudo apt-get install -y imagemagick -q
+          mkdir -p android/src/main/res/mipmap-mdpi
+          mkdir -p android/src/main/res/mipmap-hdpi
+          mkdir -p android/src/main/res/mipmap-xhdpi
+          mkdir -p android/src/main/res/mipmap-xxhdpi
+          mkdir -p android/src/main/res/mipmap-xxxhdpi
+          convert -size 48x48 xc:black \
+            android/src/main/res/mipmap-mdpi/ic_launcher.png
+          convert -size 72x72 xc:black \
+            android/src/main/res/mipmap-hdpi/ic_launcher.png
+          convert -size 96x96 xc:black \
+            android/src/main/res/mipmap-xhdpi/ic_launcher.png
+          convert -size 144x144 xc:black \
+            android/src/main/res/mipmap-xxhdpi/ic_launcher.png
+          convert -size 192x192 xc:black \
+            android/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 
       - name: Build APK
         run: ./gradlew android:assembleDebug
