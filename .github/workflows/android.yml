@@ -21,18 +21,20 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      # This creates a fresh gradle-wrapper.jar from scratch
-      - name: Force Reinstall Gradle Wrapper
+      # 1. DELETE the broken files that came from Spck/Git
+      # 2. DOWNLOAD official, working versions directly into the runner
+      - name: Clean and Replace Gradle Wrapper
         run: |
-          mkdir -p gradle/wrapper
-          # This command downloads the wrapper via a different method that handles binaries better
-          curl -L https://github.com/gradle/gradle/raw/v8.7.0/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar
-          
-      - name: Grant execute permission to Gradle wrapper
-        run: chmod +x gradlew
+          rm -f gradlew
+          rm -f gradle/wrapper/gradle-wrapper.jar
+          # Download the Shell Script
+          curl -L https://raw.githubusercontent.com/gradle/gradle/v8.7.0/gradlew -o gradlew
+          # Download the Binary JAR
+          curl -L https://raw.githubusercontent.com/gradle/gradle/raw/v8.7.0/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar
+          chmod +x gradlew
 
       - name: Build release APK
-        # We use 'bash gradlew' to bypass potential script execution issues
+        # Use 'bash' explicitly to avoid any shell compatibility issues
         run: bash gradlew android:assembleRelease --stacktrace
 
       - name: Upload APK artifact
