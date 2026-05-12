@@ -17,27 +17,26 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          # This enables automatic caching of Gradle dependencies to speed up future builds
-          cache: 'gradle'
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      # STEP TO REPAIR CORRUPT WRAPPER
-      - name: Repair Gradle Wrapper
+      # This creates a fresh gradle-wrapper.jar from scratch
+      - name: Force Reinstall Gradle Wrapper
         run: |
-          rm -f gradle/wrapper/gradle-wrapper.jar
-          wget -P gradle/wrapper/ https://raw.githubusercontent.com/gradle/gradle/v8.7.0/gradle/wrapper/gradle-wrapper.jar
-
+          mkdir -p gradle/wrapper
+          # This command downloads the wrapper via a different method that handles binaries better
+          curl -L https://github.com/gradle/gradle/raw/v8.7.0/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar
+          
       - name: Grant execute permission to Gradle wrapper
         run: chmod +x gradlew
 
       - name: Build release APK
-        run: ./gradlew android:assembleRelease --stacktrace
+        # We use 'bash gradlew' to bypass potential script execution issues
+        run: bash gradlew android:assembleRelease --stacktrace
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: re-wilder-apk
           path: android/build/outputs/apk/release/*.apk
-          retention-days: 30
