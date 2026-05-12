@@ -21,24 +21,29 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      # 1. DELETE the broken files that came from Spck/Git
-      # 2. DOWNLOAD official, working versions directly into the runner
-      - name: Clean and Replace Gradle Wrapper
+      - name: Manual Gradle Wrapper Injection
         run: |
-          rm -f gradlew
-          rm -f gradle/wrapper/gradle-wrapper.jar
-          # Download the Shell Script
+          # 1. Ensure the directory exists in the root
+          mkdir -p gradle/wrapper
+          
+          # 2. Download the wrapper JAR directly into the root-level folder
+          curl -L https://github.com/gradle/gradle/raw/v8.7.0/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar
+          
+          # 3. If your project is nested, copy it to the android folder too just in case
+          if [ -d "android" ]; then
+            mkdir -p android/gradle/wrapper
+            cp gradle/wrapper/gradle-wrapper.jar android/gradle/wrapper/gradle-wrapper.jar
+          fi
+          
+          # 4. Download a fresh gradlew script
           curl -L https://raw.githubusercontent.com/gradle/gradle/v8.7.0/gradlew -o gradlew
-          # Download the Binary JAR
-          curl -L https://raw.githubusercontent.com/gradle/gradle/raw/v8.7.0/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar
           chmod +x gradlew
 
       - name: Build release APK
-        # Use 'bash' explicitly to avoid any shell compatibility issues
         run: bash gradlew android:assembleRelease --stacktrace
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: re-wilder-apk
-          path: android/build/outputs/apk/release/*.apk
+          path: "**/*.apk" # Search all folders for any generated APK
