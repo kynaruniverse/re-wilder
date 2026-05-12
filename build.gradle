@@ -1,17 +1,43 @@
 buildscript {
     repositories {
-        google()
+        mavenLocal()
         mavenCentral()
+        google()
+        maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$androidPluginVersion"
+        classpath 'com.android.tools.build:gradle:8.3.2'
     }
 }
 
 allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+
+    version = '1.0'
+    ext {
+        appName = 'RE-WILDER'
+        gdxVersion = '1.12.1'
     }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        google()
+        maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    }
+}
+
+project(':android') {
+    apply plugin: 'com.android.application'
+}
+
+project(':core') {
+    apply plugin: 'java-library'
+}
+
+tasks.register('clean', Delete) {
+    delete rootProject.buildDir
 }

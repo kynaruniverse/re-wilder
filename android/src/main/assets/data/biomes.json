@@ -1,0 +1,74 @@
+{
+  "biomes": [
+    {
+      "id": "forest_01",
+      "displayName": "Ancient Forest",
+      "description": "A once-thriving forest now shrouded in silence and decay.",
+      "restorationThresholds": {
+        "dead": {"min": 0, "max": 24, "state": "dead"},
+        "partial": {"min": 25, "max": 49, "state": "partial"},
+        "active": {"min": 50, "max": 74, "state": "active"},
+        "restored": {"min": 75, "max": 100, "state": "restored"}
+      },
+      "audioLayers": {
+        "dead": "forest_dead",
+        "partial": "forest_partial",
+        "active": "forest_active",
+        "restored": "forest_restored"
+      },
+      "creatureSpawnTable": ["creature_rootling"],
+      "traversalGates": []
+    },
+    {
+      "id": "ruins_02",
+      "displayName": "Crumbling Ruins",
+      "description": "Ancient structures slowly being reclaimed by nature.",
+      "restorationThresholds": {
+        "dead": {"min": 0, "max": 24, "state": "dead"},
+        "partial": {"min": 25, "max": 49, "state": "partial"},
+        "active": {"min": 50, "max": 74, "state": "active"},
+        "restored": {"min": 75, "max": 100, "state": "restored"}
+      },
+      "audioLayers": {
+        "dead": "ruins_dead",
+        "partial": "ruins_partial",
+        "active": "ruins_active",
+        "restored": "ruins_restored"
+      },
+      "creatureSpawnTable": ["creature_tunnelmole", "creature_mossback"],
+      "traversalGates": []
+    },
+    {
+      "id": "wetlands_03",
+      "displayName": "Stagnant Wetlands",
+      "description": "Once-vital wetlands now choked with stagnant water.",
+      "restorationThresholds": {
+        "dead": {"min": 0, "max": 24, "state": "dead"},
+        "partial": {"min": 25, "max": 49, "state": "partial"},
+        "active": {"min": 50, "max": 74, "state": "active"},
+        "restored": {"min": 75, "max": 100, "state": "restored"}
+      },
+      "audioLayers": {
+        "dead": "wetlands_dead",
+        "partial": "wetlands_partial",
+        "active": "wetlands_active",
+        "restored": "wetlands_restored"
+      },
+      "creatureSpawnTable": ["creature_crane", "creature_driftfin"],
+      "traversalGates": []
+    },
+    {
+      "id": "village",
+      "displayName": "Sanctuary Village",
+      "description": "A growing refuge for both humans and restored creatures.",
+      "restorationThresholds": {},
+      "audioLayers": {
+        "stage_1": "village_outpost",
+        "stage_2": "village_settlement",
+        "stage_3": "village_sanctuary"
+      },
+      "creatureSpawnTable": [],
+      "traversalGates": []
+    }
+  ]
+}

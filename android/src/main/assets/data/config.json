@@ -1,0 +1,40 @@
+{
+  "game": {
+    "title": "RE-WILDER",
+    "version": "1.0.0",
+    "targetFPS": 60,
+    "minFPS": 30
+  },
+  "restoration": {
+    "thresholds": {
+      "dead": {"min": 0, "max": 24},
+      "partial": {"min": 25, "max": 49},
+      "active": {"min": 50, "max": 74},
+      "restored": {"min": 75, "max": 100}
+    },
+    "passiveTickSeconds": 60.0,
+    "passiveGainPerTick": 5.0
+  },
+  "bonding": {
+    "maxBondLevel": 5,
+    "restorationGainPerSuccess": 10.0,
+    "interactionTimeoutSeconds": 30.0,
+    "environmentalStabilizationTimeoutSeconds": 45.0
+  },
+  "audio": {
+    "crossfadeDurationSeconds": 3.0,
+    "masterVolume": 1.0,
+    "ambientVolume": 0.7,
+    "sfxVolume": 0.8
+  },
+  "ui": {
+    "controlAutoHideSeconds": 3.0,
+    "controlOpacityActive": 0.7,
+    "controlOpacityHidden": 0.0
+  },
+  "performance": {
+    "maxHeapMB": 128,
+    "textureAtlasSizeMB": 8,
+    "audioTotalMB": 20
+  }
+}

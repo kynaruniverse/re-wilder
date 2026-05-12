@@ -1,0 +1,43 @@
+{
+  "npcs": [
+    {
+      "id": "npc_ecologist_01",
+      "displayName": "Elder Ecologist",
+      "role": "guide",
+      "biomeAffinity": "forest_01",
+      "activationThreshold": 0,
+      "dialogue": {
+        "initial": "Welcome, field ecologist. The forest has fallen silent. Help us restore it.",
+        "partial": "I can see the forest beginning to stir. Your work is bearing fruit.",
+        "active": "The forest awakens! The creatures are returning.",
+        "restored": "The forest lives again. Thank you for your dedication."
+      }
+    },
+    {
+      "id": "npc_historian_01",
+      "displayName": "Archivist",
+      "role": "lore",
+      "biomeAffinity": "village",
+      "activationThreshold": 25,
+      "dialogue": {
+        "initial": "I record the history of our world's collapse and recovery.",
+        "partial": "The records show this pattern of restoration before.",
+        "active": "History is being written anew through your actions.",
+        "restored": "The cycle turns. Life returns."
+      }
+    },
+    {
+      "id": "npc_scout_01",
+      "displayName": "Scout",
+      "role": "guide",
+      "biomeAffinity": "ruins_02",
+      "activationThreshold": 50,
+      "dialogue": {
+        "initial": "The ruins hold secrets. Tread carefully.",
+        "partial": "I sense movement in the deeper ruins.",
+        "active": "The ruins are awakening. Proceed with caution.",
+        "restored": "The ruins are safe now. Life has returned."
+      }
+    }
+  ]
+}

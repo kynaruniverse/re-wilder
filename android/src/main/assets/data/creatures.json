@@ -1,0 +1,70 @@
+{
+  "creatures": [
+    {
+      "id": "creature_rootling",
+      "displayName": "Rootling",
+      "role": "restoration",
+      "traversalType": "none",
+      "interactionType": "timing_input",
+      "bondingRestorationGain": 10.0,
+      "biomeAffinity": ["forest_01"],
+      "abilities": ["ability_flora_regrowth"],
+      "description": "A small, root-like creature that accelerates plant growth in degraded forests."
+    },
+    {
+      "id": "creature_crane",
+      "displayName": "Ash Crane",
+      "role": "traversal",
+      "traversalType": "water_shallow",
+      "interactionType": "movement_sync",
+      "bondingRestorationGain": 10.0,
+      "biomeAffinity": ["wetlands_03"],
+      "abilities": ["ability_water_cross_shallow"],
+      "description": "A graceful wading bird that can traverse shallow water zones."
+    },
+    {
+      "id": "creature_tunnelmole",
+      "displayName": "Tunnelmole",
+      "role": "traversal",
+      "traversalType": "dig",
+      "interactionType": "environmental_stabilisation",
+      "bondingRestorationGain": 10.0,
+      "biomeAffinity": ["ruins_02"],
+      "abilities": ["ability_dig"],
+      "description": "A burrowing creature that can dig through soft terrain blockages."
+    },
+    {
+      "id": "creature_mossback",
+      "displayName": "Mossback",
+      "role": "restoration",
+      "traversalType": "none",
+      "interactionType": "rhythm_alignment",
+      "bondingRestorationGain": 10.0,
+      "biomeAffinity": ["ruins_02"],
+      "abilities": ["ability_flora_regrowth"],
+      "description": "A moss-covered creature that promotes vegetation recovery in ruins."
+    },
+    {
+      "id": "creature_driftfin",
+      "displayName": "Driftfin",
+      "role": "traversal",
+      "traversalType": "water_deep",
+      "interactionType": "timing_input",
+      "bondingRestorationGain": 10.0,
+      "biomeAffinity": ["wetlands_03"],
+      "abilities": ["ability_water_cross_deep"],
+      "description": "An aquatic creature capable of crossing deep water zones."
+    },
+    {
+      "id": "creature_heronkeeper",
+      "displayName": "Heronkeeper",
+      "role": "support",
+      "traversalType": "none",
+      "interactionType": "movement_sync",
+      "bondingRestorationGain": 5.0,
+      "biomeAffinity": ["village"],
+      "abilities": ["ability_assignment_capacity"],
+      "description": "A supportive creature that increases village assignment capacity."
+    }
+  ]
+}
