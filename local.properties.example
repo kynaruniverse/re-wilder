@@ -1,0 +1,11 @@
+# Android SDK configuration
+# Copy this file to local.properties and update with your SDK path
+
+# Location of the Android SDK
+sdk.dir=/path/to/android-sdk
+
+# Location of the Android NDK (optional, for native compilation)
+ndk.dir=/path/to/android-ndk
+
+# Java compiler options
+org.gradle.jvmargs=-Xmx2048m
